@@ -9,12 +9,12 @@
   </head>
   <body>
 
-    <form id='user'>
-      <input id='username' placeholder='User'>
+    <form id='search_lyrics'>
+      <input id='lyrics' placeholder='Lyrics'>
       <button type='submit'>Go!</button>
     </form>
 
-    <div class='user_info'>
+    <div class='lyrics_results'>
 
       <script type='text/template' id='lyric_template'>
 
@@ -29,15 +29,31 @@
     <script src='mustache.js'></script>
     <script>
 
-      $(document).ready(function() {
-        var url = 'http://api.metrolyrics.com/v1/search/lyrics/find/sail%20away/X-API-KEY/1234567890123456789012345678901234567890' 
-        $.get(url, function(results) {          
+      function searchLyrics(lyrics) {
+
+        var url = 'http://api.metrolyrics.com/v1/search/lyrics/find/' + lyrics + '/X-API-KEY/1234567890123456789012345678901234567890'
+
+        $.get(url, function(results) {
+
           results.items.slice(0,5).forEach(function(result) {
-            console.log(result);
 
             var newLyric = Mustache.render($('#lyric_template').html(), result);
-            $('.user_info').append(newLyric);
-          })
+
+            console.log(newLyric);
+
+            $('.lyrics_results').append(newLyric);
+
+          });
+        });
+      }
+
+      $(document).ready(function(){
+
+        $('#search_lyrics').on('submit', function(event) {
+
+          event.preventDefault();
+          searchLyrics($('#lyrics').val());
+
         });
       })
 
