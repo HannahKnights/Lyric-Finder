@@ -8,9 +8,42 @@
 
   </head>
   <body>
-  
 
-  
+    <form id='user'>
+      <input id='username' placeholder='User'>
+      <button type='submit'>Go!</button>
+    </form>
+
+    <div class='user_info'>
+
+      <script type='text/template' id='lyric_template'>
+
+      <h3><a href='{{ url }}'> {{ artist }} - {{ title }} </a></h3>
+      <p> {{ snippet }} </p>
+
+      </script>
+
+    </div>
+
+    <script src='https://code.jquery.com/jquery-2.0.3.min.js'></script>
+    <script src='mustache.js'></script>
+    <script>
+
+      $(document).ready(function() {
+        var url = 'http://api.metrolyrics.com/v1/search/lyrics/find/sail%20away/X-API-KEY/1234567890123456789012345678901234567890' 
+        $.get(url, function(results) {          
+          results.items.slice(0,5).forEach(function(result) {
+            console.log(result);
+
+            var newLyric = Mustache.render($('#lyric_template').html(), result);
+            $('.user_info').append(newLyric);
+          })
+        });
+      })
+
+
+    </script>
+
   </body>
 
 </html>
