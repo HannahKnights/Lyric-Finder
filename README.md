@@ -7,7 +7,7 @@ This small test app uses [Metro Lyrics](http://www.metrolyrics.com) API to searc
 
 Created while studying at [Makers Academy](http://www.makersacademy.com)
 
-### Technology
+#### Technology
 
 * API requests
 * Mustache.js templating
